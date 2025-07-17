@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achintya Dutta</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header-image {
+            width: 100%;
+            height: 200px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .navbar {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            padding: 15px 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .nav-menu li:hover {
+            background-color: #ecf0f1;
+        }
+
+        .nav-menu li.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .about-intro {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-section {
+            flex-shrink: 0;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 300px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .contact-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-links a:hover {
+            color: #2980b9;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .education-dropdown {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .dropdown-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .dropdown-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .dropdown-content.open {
+            max-height: 300px;
+            padding: 20px;
+        }
+
+        .education-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+
+        .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .education-degree {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .education-institution {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 3px;
+        }
+
+        .education-fellowships {
+            color: #e74c3c;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        .education-date {
+            color: #95a5a6;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .research-item {
+            margin-bottom: 35px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 25px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .research-item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .research-image {
+            width: 300px;
+            height: 200px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-style: italic;
+            flex-shrink: 0;
+        }
+
+        .research-content {
+            flex: 1;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .position {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .institution {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .date {
+            color: #95a5a6;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .description {
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .research-points {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .research-points li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .research-points li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .publications {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .pub-section {
+            margin-bottom: 30px;
+        }
+
+        .pub-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .pub-section h3 {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .publication {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 3px solid #3498db;
+            background: #f8f9fa;
+        }
+
+        .publication:last-child {
+            margin-bottom: 0;
+        }
+
+        .pub-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .pub-journal {
+            color: #e74c3c;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .profile-image {
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto 20px auto;
+            }
+
+            .research-item,
+            .research-item.reverse {
+                flex-direction: column;
+            }
+
+            .research-image {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-image">
+            [Header Banner Image Placeholder]
+        </div>
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="about">About Me</li>
+                <li class="nav-item" data-page="current-research">Current Research</li>
+                <li class="nav-item" data-page="past-research">Past Research</li>
+                <li class="nav-item" data-page="publications">Publications</li>
+            </ul>
+        </nav>
+
+        <!-- About Me Page -->
+        <div id="about" class="page active">
+            <div class="about-intro">
+                Hi, I'm Achintya. Nice to meet you!
+            </div>
+            
+            <div class="about-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        [Profile Image Placeholder]
+                    </div>
+                    <div class="contact-links">
+                        <a href="mailto:achintya.dutta@student.kuleuven.be">Email</a>
+                        <a href="#" target="_blank">Google Scholar</a>
+                        <a href="#" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                
+                <div class="about-text">
+                    <p>I am currently pursuing my MS in Nanoscience and Nanotechnology at KU Leuven, Belgium and TU Dresden, Germany as an Erasmus Mundus Scholar. My research interests span nanoelectronics, advanced logic and memory devices, 2D materials, electron transport, and condensed matter physics.</p>
+                    
+                    <p>Previously, I spent a year working as a Research Engineer in the Department of Condensed Matter Physics at the Tata Institute of Fundamental Research (TIFR) on Josephson Junctions and 2D material heterostructures. I've also had the opportunity to work as a joint intern between Intel Components Research Oregon and IMEC Leuven on stress modeling in Complementary Field Effect Transistors (CFETs).</p>
+                    
+                    <p>When I'm not squinting my eyes at a research paper, I like to spend my time outdoors hiking, traveling, and exploring eateries. I'm also a big sports fan (Hala Madrid!!), dog lover, and foodie!</p>
+                </div>
+            </div>
+
+            <div class="education-dropdown">
+                <div class="dropdown-header" onclick="toggleDropdown()">
+                    Education ▼
+                </div>
+                <div class="dropdown-content" id="education-content">
+                    <div class="education-item">
+                        <div class="education-header">
+                            <div>
+                                <div class="education-degree">M.S. in Nanoscience (Erasmus Mundus)</div>
+                                <div class="education-institution">KU Leuven, Belgium & TU Dresden, Germany</div>
+                                <div class="education-fellowships">Erasmus Mundus Scholar • J N Tata Fellow</div>
+                            </div>
+                            <div class="education-date">2023 - Present</div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <div class="education-header">
+                            <div>
+                                <div class="education-degree">B.Tech. Electronics & Communication Engineering</div>
+                                <div class="education-institution">Manipal Institute of Technology, India</div>
+                                <div class="education-fellowships">Minor in Material Science</div>
+                            </div>
+                            <div class="education-date">2018 - 2022</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Research Page -->
+        <div id="current-research" class="page">
+            <div class="section">
+                <h2>Current Research</h2>
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="item-header">
+                            <div>
+                                <div class="position">Master's Thesis • Ultrafast Microscopy Lab</div>
+                                <div class="institution">TU Dresden, Germany • Prof. Alexey Chernikov</div>
+                            </div>
+                            <div class="date">Nov 2024 - Present</div>
+                        </div>
+                        <div class="description">
+                            <strong>Hyperspatial Second-Harmonic Microscopy of Strain Fields in 2D Semiconductors</strong>
+                            <ul class="research-points">
+                                <li>Combining angle-resolved second-harmonic generation (SHG) and photoluminescence (PL) to map spatially modulated strain tensors in monolayer TMDs</li>
+                                <li>Investigating the effect of strain on optical selection rules for excitons and studying temperature dependence of strain fields</li>
+                                <li>Characterizing formation of strain vortices and quasi-1D excitonic waveguides</li>
+                                <li>Performing numerical simulations of exciton diffusion in strain-induced energy landscapes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-image">
+                        [Strain Mapping Image Placeholder]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Research Page -->
+        <div id="past-research" class="page">
+            <div class="section">
+                <h2>Past Research</h2>
+                
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="item-header">
+                            <div>
+                                <div class="position">Joint Research Intern</div>
+                                <div class="institution">Intel Components Research Oregon & IMEC Leuven</div>
+                            </div>
+                            <div class="date">Jul - Oct 2024</div>
+                        </div>
+                        <div class="description">
+                            <strong>Modeling Stress in Complementary FETs (CFETs)</strong>
+                            <ul class="research-points">
+                                <li>Simulated CFET process flows to track propagation of channel stress in stacked NMOS and PMOS nanoribbons</li>
+                                <li>Combined TCAD device simulations with stress models to study effect of source-drain geometry on electron/hole mobility</li>
+                                <li>Calculated transfer characteristics of strain-engineered CFET devices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-image">
+                        [CFET Stress Modeling Image Placeholder]
+                    </div>
+                </div>
+
+                <div class="research-item reverse">
+                    <div class="research-content">
+                        <div class="item-header">
+                            <div>
+                                <div class="position">Project Researcher</div>
+                                <div class="institution">Nanoelectronics Lab, TIFR • Prof. Mandar M. Deshmukh</div>
+                            </div>
+                            <div class="date">Aug 2022 - Jul 2023</div>
+                        </div>
+                        <div class="description">
+                            <strong>Twisted High-Tc van der Waals Josephson Junctions</strong>
+                            <ul class="research-points">
+                                <li>Demonstrated twist-angle dependent Superconducting Diode Effect up to 77 K in twisted Bi₂Sr₂CaCu₂O₈+δ heterostructures</li>
+                                <li>Optimized solvent-free cryogenic re-exfoliation method for fabricating pristine twisted junctions</li>
+                                <li>Worked with chemically-sensitive 2D materials including BSCCO, CrCl₃, NbSe₂, WTe₂, and MoTe₂</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-image">
+                        [Josephson Junction Image Placeholder]
+                    </div>
+                </div>
+
+                <div class="research-item">
+                    <div class="research-content">
+                        <div class="item-header">
+                            <div>
+                                <div class="position">Research Assistant</div>
+                                <div class="institution">Materials Modelling Lab, KU Leuven • Prof. Michel Houssa</div>
+                            </div>
+                            <div class="date">Feb - Jul 2024</div>
+                        </div>
+                        <div class="description">
+                            <strong>Hubbard-Corrected DFT Calculations of 2D Vanadium Dihalides</strong>
+                            <ul class="research-points">
+                                <li>Performed DFT+U and phonon calculations on 2D vanadium dihalides (VX₂) to identify stable magnetic ground states</li>
+                                <li>Incorporated spin-orbit interaction to compute band structures and predict potential band inversion</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="research-image">
+                        [DFT Calculations Image Placeholder]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Publications Page -->
+        <div id="publications" class="page">
+            <div class="section">
+                <h2>Publications</h2>
+                <div class="publications">
+                    <div class="pub-section">
+                        <h3>Journal Articles</h3>
+                        <div class="publication">
+                            <div class="pub-title">High-Temperature Josephson Diode</div>
+                            <div>S. Ghosh, V. Patil, A. Basu, Kuldeep, <strong>A. Dutta</strong>, et al.</div>
+                            <div class="pub-journal">Nature Materials 23, 612-618 (2024)</div>
+                        </div>
+                        
+                        <div class="publication">
+                            <div class="pub-title">Dry Cryogenic Assembly of Chemically Sensitive van der Waals Heterostructures</div>
+                            <div>V. Patil, S. Ghosh, A. Basu, Kuldeep, <strong>A. Dutta</strong>, et al.</div>
+                            <div class="pub-journal">Scientific Reports 14, 11097 (2024)</div>
+                        </div>
+                        
+                        <div class="publication">
+                            <div class="pub-title">Bilayer Vanadium Dioxide Thin Film with Elevated Transition Temperatures and High Resistance Switching</div>
+                            <div><strong>A. Dutta</strong>, P. Ashok, A. Verma</div>
+                            <div class="pub-journal">Journal of Applied Physics 134, 145306 (2023)</div>
+                        </div>
+                        
+                        <div class="publication">
+                            <div class="pub-title">Stress in Single and Multi-Ribbon Complementary FETs (CFETs): Evolution in Process Flow and Impact on Drive Current</div>
+                            <div><strong>A. Dutta</strong>, G. Eneman, N. K. Thomas, P. Matagne, M. Radosavljević</div>
+                            <div class="pub-journal">IEEE Transactions on Electron Devices (in review)</div>
+                        </div>
+                    </div>
+
+                    <div class="pub-section">
+                        <h3>Conference Presentations</h3>
+                        <div class="publication">
+                            <div class="pub-title">Hyperspatial Second-Harmonic Microscopy of Strain-Fields in 2D Semiconductors</div>
+                            <div><strong>A. Dutta</strong>, J. Ratzenberger, M. Cuccu, T. Taniguchi, K. Watanabe and A. Chernikov</div>
+                            <div class="pub-journal">2D Transition Metal Dichalcogenides, University of Cambridge (2025) - accepted</div>
+                        </div>
+                        
+                        <div class="publication">
+                            <div class="pub-title">Compact Model Parameter Extraction Using Modular Q Learning for Nano-Scale Transistors</div>
+                            <div><strong>A. Dutta</strong>, D. Rajasekharan and Y. S. Chauhan</div>
+                            <div class="pub-journal">IEEE International Conference on Emerging Electronics, IIT Delhi (2020)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            pages.forEach(page => page.classList.remove('active'));
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(pageId).classList.add('active');
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const pageId = item.getAttribute('data-page');
+                switchPage(pageId);
+            });
+        });
+
+        function toggleDropdown() {
+            const content = document.getElementById('education-content');
+            content.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
